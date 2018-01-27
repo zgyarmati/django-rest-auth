@@ -47,9 +47,9 @@ class LoginSerializer(serializers.Serializer):
         user = None
 
         if email and password:
-            user = authenticate(email=email, password=password)
+            user = authenticate(request=self.context['request'], email=email, password=password)
         elif username and password:
-            user = authenticate(username=username, password=password)
+            user = authenticate(request=self.context['request'], username=username, password=password)
         else:
             msg = _('Must include either "username" or "email" and "password".')
             raise exceptions.ValidationError(msg)
